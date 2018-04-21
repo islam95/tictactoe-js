@@ -36,7 +36,7 @@ table tr td:last-child {
 .endgame {
   width: 200px;
   top: 120px;
-  background-color: rgba(48, 62, 77, 0.9);
+  background-color: rgba(48, 62, 77, 0.95);
   position: absolute;
   left: 50%;
   margin-left: -100px;

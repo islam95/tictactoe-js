@@ -26,7 +26,10 @@ function startGame() {
 }
 
 function clickCell(cell) {
-	turn(cell.target.id, human);
+	if (typeof board[cell.target.id] == 'number') {
+		turn(cell.target.id, human);
+		if (!checkCells()) turn(bestSpot(), computer);
+	}
 }
 
 function turn(cellId, player) {
@@ -56,4 +59,30 @@ function gameOver(gameWon) {
 	for (var i = 0; i < cells.length; i++) {
 		cells[i].removeEventListener('click', clickCell, false);
 	}
+	declareWinner(gameWon.player == human ? "You win!" : "You lose.");
+}
+
+function declareWinner(who) {
+	document.querySelector(".endgame").style.display = "block";
+	document.querySelector(".endgame .text").innerText = who;
+}
+
+function emptySquares() {
+	return board.filter(s => typeof s == 'number');
+}
+
+function bestSpot() {
+	return emptySquares()[0];
+}
+
+function checkCells() {
+	if (emptySquares().length == 0) {
+		for (var i = 0; i < cells.length; i++) {
+			cells[i].style.backgroundColor = "green";
+			cells[i].removeEventListener('click', clickCell, false);
+		}
+		declareWinner("Draw!")
+		return true;
+	}
+	return false;
 }
