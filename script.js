@@ -1,6 +1,12 @@
 var board;
-const human = 'O';
-const computer = 'X';
+// Choose X or O
+const x = document.querySelector('#x');
+const o = document.querySelector('#o');
+const choose = document.querySelector(".choose");
+const endgame = document.querySelector(".endgame");
+var humna = '';
+var computer = '';
+
 const winCombos = [
 	[0, 1, 2],
 	[3, 4, 5],
@@ -12,11 +18,29 @@ const winCombos = [
 	[6, 4, 2]
 ]
 
+function reset(){
+	choose.style.display = "block";
+	endgame.style.display = "none";
+}
+
 const cells = document.querySelectorAll('.cell');
-startGame();
+
+x.addEventListener('click', function(){
+	human = 'X';
+	computer = 'O';
+	choose.style.display = "none";
+	startGame();
+});
+
+o.addEventListener('click', function(){
+	human = 'O';
+	computer = 'X';
+	choose.style.display = "none";
+	startGame();
+});
 
 function startGame() {
-	document.querySelector(".endgame").style.display = "none";
+	endgame.style.display = "none";
 	board = Array.from(Array(9).keys());
 	for (let i = 0; i < cells.length; i++) {
 		cells[i].innerText = '';
@@ -28,7 +52,11 @@ function startGame() {
 function clickCell(cell) {
 	if (typeof board[cell.target.id] == 'number') {
 		turn(cell.target.id, human);
-		if (!checkCells()) turn(bestSpot(), computer);
+		if (!checkCells()) {
+			setTimeout(function(){ 
+				turn(bestSpot(), computer); 
+			}, 1000);
+		}
 	}
 }
 
@@ -63,7 +91,7 @@ function gameOver(gameWon) {
 }
 
 function declareWinner(who) {
-	document.querySelector(".endgame").style.display = "block";
+	endgame.style.display = "block";
 	document.querySelector(".endgame .text").innerText = who;
 }
 

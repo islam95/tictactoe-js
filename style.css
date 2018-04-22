@@ -33,7 +33,7 @@ table tr td:last-child {
 	border-right: 0;
 }
 
-.endgame {
+.endgame, .choose {
 	width: 200px;
 	top: 120px;
 	background-color: rgba(48, 62, 77, 0.95);
@@ -59,8 +59,12 @@ button {
 	display: inline-block;
 	font-size: 16px;
 	cursor: pointer;
-	-webkit-transition-duration: 0.3s;
-	transition-duration: 0.3s;
+	-webkit-transition-duration: 0.2s;
+	transition-duration: 0.2s;
+}
+
+#x, #o {
+	font-size: 24px;
 }
 
 button:hover {
